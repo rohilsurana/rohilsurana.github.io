@@ -1,0 +1,124 @@
+<!doctype html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+
+  <!-- Use the .htaccess and remove these lines to avoid edge case issues.
+       More info: h5bp.com/b/378 -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <title>Getting started with VIM |  Rohil Surana</title>
+  <meta name="author" content="Rohil Surana">
+  
+
+  
+  <!-- Mobile viewport optimized: j.mp/bplateviewport -->
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
+
+  <!-- CSS: implied media=all -->
+  <!-- CSS concatenated and minified via ant build script-->
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
+  <!-- end CSS-->
+
+  <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
+
+  <!-- All JavaScript at the bottom, except for Modernizr / Respond.
+       Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries
+       For optimal performance, use a custom Modernizr build: www.modernizr.com/download/ -->
+  <script src="/javascripts/libs/modernizr-2.0.6.min.js"></script>
+</head>
+
+<body id="post">
+
+  <div id="container">
+    <header>
+    <a href="http://rohilsurana.github.io">Home</a>
+</header>
+
+    <article>
+
+
+  <h1 class="article-title">Getting Started With VIM</h1>
+  <div class="article-content"><p>I have tried learning VIM a number of times but failed. I fumbled with it and pressed random keys to just get out of it. Most of times it has been because of my inability to select large blocks of text using mouse and deleting it, which I have been used to when using Atom and Sublime Text or some IDE. Using VIM requires you to be already comfortable with writing commands, i.e. you should be good at using command line. When you get comfortable with the keyboard only then can you master VIM. And that is one of the advantages of VIM, it forces you to minimize the use of mouse. Now not using mouse does 2 things, lets your hand sit on the keyboard and save the time for shifting to the mouse from the keyboard.</p>
+
+<h4>Why VIM?</h4>
+
+<p>VIM is available by default on most of the OS distributions. Also as one of my friend suggests you can use it to edit files on a remote hosts too. But that is not all. VIM&rsquo;s plugins are what makes it so great, just like any of the new editors out there VIM also has plugins support (20+ years old, meh!). Being old and a preffered choice of power users the number of plugins it has are around double that of Atom.</p>
+
+<p>It has different modes, a few of which are Normal mode, Visual Mode, Insert Mode, Command Mode etc.. These can be invoked using different keys in the Normal mode that is given at start of VIM. These modes provide different kinds of functions. Command mode, as the name suggests, can be used to execute commands that can run on the current file. You can also add custom commands by yourself or by adding plugins. For example using a :py command to execute python code from VIM.</p>
+
+<p>To make up for the mouse it has motions, in the normal mode you can use <code>h</code>, <code>j</code>, <code>k</code>, <code>l</code> to move the cursor left, down, up, right respectively. Prefix it with a number like <code>9k</code> can cause that counts of motion in the respective direction. There are many such motions like <code>H</code>, <code>G</code> etc. that are used to jump to top or bottom of the page. In Visual mode using these motions causes the text to get selected. Hence you can use complex combinations of these motions to select desired text and copy or replace it.</p>
+
+<p>There are also similar text objects that are independent of the cursor position inside the scope. These work on the complete word, sentence, paragraph despite their position inside it. Ex - <code>diw</code> would delete a word while <code>dw</code> will delete only the part of the word after the prompt.
+Similarly exists <code>daw</code>, <code>dis</code>, <code>das</code>, <code>dip</code>, <code>dap</code> etc..</p>
+
+<p>These text-objects and motions enables a user to move faster and precisely without removing their hands from the keyboard.</p>
+
+<p>I am beginning to use these motions and text to speed up the editing process.</p>
+</div>
+  <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://rohilsurana.github.io/blog/2017/07/07/getting-started-with-vim/" data-via="rohilrs" data-counturl="http://rohilsurana.github.io/blog/2017/07/07/getting-started-with-vim/" >Tweet</a>
+  
+  
+</div>
+
+  
+
+</article>
+
+
+        <footer>
+
+    </footer>
+
+  </div>
+
+    <!-- JavaScript at the bottom for fast page loading -->
+
+  <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="js/libs/jquery-1.6.2.min.js"><\/script>')</script>
+
+
+  <!-- scripts concatenated and minified via ant build script-->
+  <script defer src="/javascripts/app.js"></script>
+  <!-- end scripts-->
+
+	
+
+  <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.
+       chromium.org/developers/how-tos/chrome-frame-getting-started -->
+  <!--[if lt IE 7 ]>
+    <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+    <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+  <![endif]-->
+ 
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>
+
