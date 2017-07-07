@@ -4,7 +4,7 @@
   <title><![CDATA[What are we all looking for?]]></title>
   <link href="http://rohilsurana.github.io/atom.xml" rel="self"/>
   <link href="http://rohilsurana.github.io/"/>
-  <updated>2017-07-07T05:07:29+05:30</updated>
+  <updated>2017-07-07T10:04:09+05:30</updated>
   <id>http://rohilsurana.github.io/</id>
   <author>
     <name><![CDATA[Rohil Surana]]></name>
@@ -18,7 +18,7 @@
     <link href="http://rohilsurana.github.io/blog/2017/07/07/getting-started-with-vim/"/>
     <updated>2017-07-07T02:44:24+05:30</updated>
     <id>http://rohilsurana.github.io/blog/2017/07/07/getting-started-with-vim</id>
-    <content type="html"><![CDATA[<p>I have tried learning VIM a number of times but failed. I fumbled with it and pressed random keys to just get out of it. Most of times it has been because of my inability to select large blocks of text using mouse and deleting it, which I have been used to when using Atom and Sublime Text or some IDE. Using VIM requires you to be already comfortable with writing commands, i.e. you should be good at using command line. When you get comfortable with the keyboard only then can you master VIM. And that is one of the advantages of VIM, it forces you to minimize the use of mouse. Now not using mouse does 2 things, lets your hand sit on the keyboard and save the time for shifting to the mouse from the keyboard.</p>
+    <content type="html"><![CDATA[<p>I don&rsquo;t think anyone who is reading this doesn&rsquo;t know about VIM. Everyone, one in their life has been forced to exit it. I have tried learning VIM a number of times but failed. I fumbled with it and pressed random keys to just get out of it. Most of times it has been because of my inability to select large blocks of text using mouse and deleting it, which I have been used to when using Atom and Sublime Text or some IDE. Using VIM requires you to be already comfortable with writing commands, i.e. you should be good at using command line. When you get comfortable with the keyboard only then can you master VIM. And that is one of the advantages of VIM, it forces you to minimize the use of mouse. Now not using mouse does 2 things, lets your hand sit on the keyboard and save the time for shifting to the mouse from the keyboard.</p>
 
 <h4>Why VIM?</h4>
 
@@ -31,7 +31,7 @@
 <p>There are also similar text objects that are independent of the cursor position inside the scope. These work on the complete word, sentence, paragraph despite their position inside it. Ex - <code>diw</code> would delete a word while <code>dw</code> will delete only the part of the word after the prompt.
 Similarly exists <code>daw</code>, <code>dis</code>, <code>das</code>, <code>dip</code>, <code>dap</code> etc..</p>
 
-<p>These text-objects and motions enables a user to move faster and precisely without removing their hands from the keyboard.</p>
+<p>These text-objects and motions enables a user to move faster and precisely without removing their hands from the keyboard and hence saving time.</p>
 
 <p>I am beginning to use these motions and text to speed up the editing process.</p>
 ]]></content>
