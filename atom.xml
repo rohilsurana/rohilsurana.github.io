@@ -4,7 +4,7 @@
   <title><![CDATA[What are we all looking for?]]></title>
   <link href="http://rohilsurana.github.io/atom.xml" rel="self"/>
   <link href="http://rohilsurana.github.io/"/>
-  <updated>2017-07-12T00:07:46+05:30</updated>
+  <updated>2017-07-17T04:47:23+05:30</updated>
   <id>http://rohilsurana.github.io/</id>
   <author>
     <name><![CDATA[Rohil Surana]]></name>
@@ -12,6 +12,31 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[It's Not Optimization]]></title>
+    <link href="http://rohilsurana.github.io/blog/2017/07/17/its-not-optimization/"/>
+    <updated>2017-07-17T02:34:24+05:30</updated>
+    <id>http://rohilsurana.github.io/blog/2017/07/17/its-not-optimization</id>
+    <content type="html"><![CDATA[<center><img class="center" src="http://rohilsurana.github.io/images/got_premature_optimization.jpg"></center>
+
+
+<p><br></p>
+
+<blockquote><p>&ldquo;We should forget about small efficiencies, say about 97% of the time: premature optimization is the root of all evil.&rdquo; - Donald Knuth</p></blockquote>
+
+<p>&ldquo;Premature Optimization&rdquo; can be defined as optimizing before we know that we need to. It can be considered as breaking YAGNI (You Aren&rsquo;t Gonna Need It). This can result in a design that is not as clean as it could have been or code that is incorrect, because the code is complicated by the optimization and the programmer is distracted by optimizing.</p>
+
+<p>It can be
+In short the programmer thought it&rsquo;s good to complicate the code to extract a little bit of optimization out of it. What they do not realize is that this optimization will be useless, unless done after following the the only rule of optimization -</p>
+
+<p>  <em>First profile, and then attack the bottleneck</em></p>
+
+<p>The error that most people make is that they do not look at bigger picture, they optimize the code that they think will affect performance but they do not realize that that was not the bottleneck. Many times these optimizations break the design that the programmer initially had in mind. This results in unwanted complexity of the code. When they do this they end up creating a trap for future contributors to fall into and generate bugs.</p>
+
+<p>The right way of approaching performance optimization should be to create a project according to the initial design and then perform metrics on it to find the bottleneck. Once you find out the performance you will know which parts are worth the effort. Think about the cost and how much complexity you will add to the code as well. Do not mistake premature optimization with refactoring, if possible try to refactor your code to optimize it without breaking the design you are following.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Code vs English]]></title>

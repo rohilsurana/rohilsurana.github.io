@@ -12,7 +12,7 @@
        More info: h5bp.com/b/378 -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title> Rohil Surana</title>
+  <title>It's not optimization |  Rohil Surana</title>
   <meta name="author" content="Rohil Surana">
   
 
@@ -36,119 +36,51 @@
   <script src="/javascripts/libs/modernizr-2.0.6.min.js"></script>
 </head>
 
-<body>
+<body id="post">
 
   <div id="container">
     <header>
-      <h2>Rohil Surana</h2>
-      <center><h1>What are we all looking for?</h1></center>
-    </header>
-    <div id="main" role="main">
-      <div id="personal">
-  <ul class="social">
-    <li>I put my code on <a href="https://github.com/rohilsurana">GitHub</a></li>
-    <li>I hang mostly on <a href="https://www.facebook.com/rohil.surana">Facebook</a> and <a href="https://twitter.com/rohilrs">Twitter</a></li>
-  </ul>
-  <ul class="toolbox">
-    <li>I work at <a href="http://gojekengineering.com/" title="GO-JEK">GO-JEK, India</a></li>
-  </ul>
-  <br style="clear:both;">
+    <a href="http://rohilsurana.github.io">Home</a>
+</header>
+
+    <article>
+
+
+  <h1 class="article-title">It's Not Optimization</h1>
+  <div class="article-content"><center><img class="center" src="/images/got_premature_optimization.jpg"></center>
+
+
+<p><br></p>
+
+<blockquote><p>&ldquo;We should forget about small efficiencies, say about 97% of the time: premature optimization is the root of all evil.&rdquo; - Donald Knuth</p></blockquote>
+
+<p>&ldquo;Premature Optimization&rdquo; can be defined as optimizing before we know that we need to. It can be considered as breaking YAGNI (You Aren&rsquo;t Gonna Need It). This can result in a design that is not as clean as it could have been or code that is incorrect, because the code is complicated by the optimization and the programmer is distracted by optimizing.</p>
+
+<p>It can be
+In short the programmer thought it&rsquo;s good to complicate the code to extract a little bit of optimization out of it. What they do not realize is that this optimization will be useless, unless done after following the the only rule of optimization -</p>
+
+<p>  <em>First profile, and then attack the bottleneck</em></p>
+
+<p>The error that most people make is that they do not look at bigger picture, they optimize the code that they think will affect performance but they do not realize that that was not the bottleneck. Many times these optimizations break the design that the programmer initially had in mind. This results in unwanted complexity of the code. When they do this they end up creating a trap for future contributors to fall into and generate bugs.</p>
+
+<p>The right way of approaching performance optimization should be to create a project according to the initial design and then perform metrics on it to find the bottleneck. Once you find out the performance you will know which parts are worth the effort. Think about the cost and how much complexity you will add to the code as well. Do not mistake premature optimization with refactoring, if possible try to refactor your code to optimize it without breaking the design you are following.</p>
+</div>
+  <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://rohilsurana.github.io/blog/2017/07/17/its-not-optimization/" data-via="rohilrs" data-counturl="http://rohilsurana.github.io/blog/2017/07/17/its-not-optimization/" >Tweet</a>
+  
+  
 </div>
 
-<h3>Posts</h3>
-
-
-
-  <article>
-    <article>
-
-
-  <div class="article-read-more">
-    <p class="meta">
-      
-
-
-
-
-
   
-
-
-
-<time datetime="2017-07-17T02:34:24+05:30" pubdate  data-updated="true" >2017-07-17 02:34:24 +0530</time>
-      <a rel="full-article" href="http://rohilsurana.github.io/blog/2017/07/17/its-not-optimization/">It's not optimization</a>
-    </p>
-  </div>
 
 </article>
 
-  </article>
-
-
-  <article>
-    <article>
-
-
-  <div class="article-read-more">
-    <p class="meta">
-      
-
-
-
-
-
-  
-
-
-
-<time datetime="2017-07-11T20:50:36+05:30" pubdate  data-updated="true" >2017-07-11 20:50:36 +0530</time>
-      <a rel="full-article" href="http://rohilsurana.github.io/blog/2017/07/11/english-vs-code/">Code vs English</a>
-    </p>
-  </div>
-
-</article>
-
-  </article>
-
-
-  <article>
-    <article>
-
-
-  <div class="article-read-more">
-    <p class="meta">
-      
-
-
-
-
-
-  
-
-
-
-<time datetime="2017-07-07T02:44:24+05:30" pubdate  data-updated="true" >2017-07-07 02:44:24 +0530</time>
-      <a rel="full-article" href="http://rohilsurana.github.io/blog/2017/07/07/getting-started-with-vim/">Getting started with VIM</a>
-    </p>
-  </div>
-
-</article>
-
-  </article>
-
-<nav role="pagination">
-  <div>
-    
-    <a href="http://rohilsurana.github.io/archives">Blog Archives</a>
-    
-  </div>
-</nav>
-
-    </div>
-    <footer>
+        <footer>
 
     </footer>
-  </div> <!--! end of #container -->
+
+  </div>
 
     <!-- JavaScript at the bottom for fast page loading -->
 
@@ -189,3 +121,4 @@
 
 </body>
 </html>
+
