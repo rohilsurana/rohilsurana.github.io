@@ -1,0 +1,134 @@
+<!doctype html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+
+  <!-- Use the .htaccess and remove these lines to avoid edge case issues.
+       More info: h5bp.com/b/378 -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <title>Working with Ruby on Rails and PgSQL on Vagrant |  Rohil Surana</title>
+  <meta name="author" content="Rohil Surana">
+  
+
+  
+  <!-- Mobile viewport optimized: j.mp/bplateviewport -->
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
+
+  <!-- CSS: implied media=all -->
+  <!-- CSS concatenated and minified via ant build script-->
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
+  <!-- end CSS-->
+
+  <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
+
+  <!-- All JavaScript at the bottom, except for Modernizr / Respond.
+       Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries
+       For optimal performance, use a custom Modernizr build: www.modernizr.com/download/ -->
+  <script src="/javascripts/libs/modernizr-2.0.6.min.js"></script>
+</head>
+
+<body id="post">
+
+  <div id="container">
+    <header>
+    <a href="http://rohilsurana.github.io">Home</a>
+</header>
+
+    <article>
+
+
+  <h1 class="article-title">Working With Ruby on Rails and PgSQL on Vagrant</h1>
+  <div class="article-content"><center><img class="center" src="/images/vagrant-postgre-ruby.jpeg"></center>
+
+
+<p><br></p>
+
+<p>At our bootcamp we were working on a Rails application that uses PgSQL for database. At DevOps part of bootcamp we were told to setup and use Vagrant to run this application. Most of us had never used Vagrant before. It was steep learning curve understanding how it works and how to use it.</p>
+
+<p>Vagrant is a tool built upon already existing virtual machine providers like VirtualBox, VMWare, etc. to simplify workflow and remove any worry about the environment in which our code will run.
+The name suggests that it is meant for code that can reside any where, so as a vagrant your code can live anywhere, irrespective of the environment present there.</p>
+
+<p>There are many guides out there that will help you to setup a Vagrant virtual machine for Rails, but I found that most of them missed a very important information in the guide. When you setup your Vagrant virtual machine using a Vagrantfile, there are two users that are created by default, a <code>root</code> user and a <code>vagrant</code> user. Now why this is important is that by default the provisions run by the Vagrantfile are executed by the root user, but when you <code>ssh</code> into you Vagrant machine using <code>vagrant ssh</code> you are logged in as the <code>vagrant</code> user.</p>
+
+<p>Now when you try to use PgSQL for your Rails app, when logged in using ssh you see the vagrant user and hence create a PG role with vagrant name so you won&rsquo;t have to use a password in you Rails app for connecting to PG, and when you try to start the Rails app tests in the provisions, you fail because the provisions are being executed by the root user.</p>
+
+<p>So I found out three ways to resolve this error -
+  - Create the PG role with name as root
+  - Change the user to vagrant user before starting the Rails app tests in provisions
+  - Run provisions with the vagrant user</p>
+
+<p>The first option seems the easiest as all you have to do is change the name of the role in the provisions. But you will need to use different user for serving the app as any vulnerability in your app can give a person access to the root user on your machine.</p>
+
+<p>For the second option you just need to change the user to vagrant in your provisions script and run tests with that.
+You won&rsquo;t need to use a different user when serving the app.</p>
+
+<p>The third way is very similar to the second way except that the functionality is provided by Vagrant itself. You can set the provisions to run with the vagrant user by setting <code>priviledged: false</code> in the Vagrantfile for the provisions, but then you will need to use <code>sudo</code> many times in your shell scripts.</p>
+
+<p>I am trying to find out which is the most appropriate way to resolve the error and will post about it when I find out. Till then - Happy coding.</p>
+</div>
+  <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://rohilsurana.github.io/blog/2017/08/10/working-with-ruby-on-rails-and-pgsql-on-vagrant/" data-via="rohilrs" data-counturl="http://rohilsurana.github.io/blog/2017/08/10/working-with-ruby-on-rails-and-pgsql-on-vagrant/" >Tweet</a>
+  
+  
+</div>
+
+  
+
+</article>
+
+        <footer>
+
+    </footer>
+
+  </div>
+
+    <!-- JavaScript at the bottom for fast page loading -->
+
+  <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="js/libs/jquery-1.6.2.min.js"><\/script>')</script>
+
+
+  <!-- scripts concatenated and minified via ant build script-->
+  <script defer src="/javascripts/app.js"></script>
+  <!-- end scripts-->
+
+	
+
+  <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.
+       chromium.org/developers/how-tos/chrome-frame-getting-started -->
+  <!--[if lt IE 7 ]>
+    <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+    <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+  <![endif]-->
+ 
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>
+
