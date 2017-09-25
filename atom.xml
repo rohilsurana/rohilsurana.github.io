@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[My experiences with source]]></title>
+  <link href="http://rohilsurana.github.io/atom.xml" rel="self"/>
+  <link href="http://rohilsurana.github.io/"/>
+  <updated>2017-09-25T21:48:40+05:30</updated>
+  <id>http://rohilsurana.github.io/</id>
+  <author>
+    <name><![CDATA[Rohil Surana]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Testing in Ruby Using Mocks]]></title>
+    <link href="http://rohilsurana.github.io/blog/2017/09/24/testing-in-ruby-using-mocks/"/>
+    <updated>2017-09-24T23:53:07+05:30</updated>
+    <id>http://rohilsurana.github.io/blog/2017/09/24/testing-in-ruby-using-mocks</id>
+    <content type="html"><![CDATA[<p>Testing is a very important part of software development, and it doesn&rsquo;t just ends at you writing tests for your perfectly working code but writing tests before you write your perfectly working code i.e. follow TDD - Test Driven Development. And while you are doing all this you might have faced the problem where running your tests suite is taking a lot of time and hence increasing your development time. That&rsquo;s one reason why you would opt for mocking in your tests.</p>
+
+<p>When unit testing, many times we find that the unit being tested depends on other units for it&rsquo;s functioning. These units can sometimes be difficult to work with because they might be dealing with a database, file IO or maybe a HTTP API. All of these can be slow at times, especially a HTTP API and increasing testing time as well as you might not want to hit an external HTTP API each time you run tests. Here comes in the use of <a href="https://martinfowler.com/bliki/TestDouble.html">test-doubles</a>. In Ruby <a href="https://github.com/rspec/rspec-mocks">rpec-mocks</a> is one way to create these. Lets say you are working on a twitter app that has a PostController -</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>class PostController
+</span><span class='line'>  def create(user, title, article)
+</span><span class='line'>    post = Post.new(user, title, article)
+</span><span class='line'>    if post.save
+</span><span class='line'>      return true
+</span><span class='line'>    else
+</span><span class='line'>      return false
+</span><span class='line'>    end
+</span><span class='line'>  end
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Here the unit being tested is create method and hence we do not care about the implementation of the dependencies like Post.</p>
+
+<p>Now lets write the test for <code>PostController.create()</code> -</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>describe PostController do
+</span><span class='line'>  context "#create" do
+</span><span class='line'>    it "creates a new post for a given user"
+</span><span class='line'>      user = double("user")
+</span><span class='line'>      title = "Title"
+</span><span class='line'>      article = "Article"
+</span><span class='line'>      post = instance_double("post")
+</span><span class='line'>      expect(post).to receive(:save) { true }
+</span><span class='line'>      expect(Post).to receive(:new) { post }
+</span><span class='line'>      post_controller = PostController.new()
+</span><span class='line'>      expect(post_controller.create(user, title, article)).to eq(true)
+</span><span class='line'>    end
+</span><span class='line'>  end
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In the above example you can see we have tried to verify if the unit being tested makes calls that it is supposed to and returns the expected value. By setting expectation on <code>:save</code> we ensure that if it is not called then the test will fail.</p>
+
+<p>Here there is no need to worry about the <code>user</code> being queried for its details that are to be used in creation of a post, or how the <code>post</code> is actually going to save the details into the database and at the same time we are able to confirm that the functions required by the method <code>create</code> are being used by it.</p>
+
+<p>Rspec-mocks provides a lot more similar functionalities that can be used to test more complex functions easily. For more details have a look at the rspec-mocks <a href="https://github.com/rspec/rspec-mocks">documentation</a>.</p>
+
+<p>Mocking is a very opinionated topic just like testing itself. Some people believe that ideally all tests should be properly mocked while some believe otherwise. I have found mocking helpful because of the reasons I have mentioned above. The downside of mocking that I have felt is that sometimes you need to know some of the implementation details beforehand. I think there is no problem if you use mocking or not, the main thing to
+note is that you test.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Working With Ruby on Rails and PgSQL on Vagrant]]></title>
+    <link href="http://rohilsurana.github.io/blog/2017/08/10/working-with-ruby-on-rails-and-pgsql-on-vagrant/"/>
+    <updated>2017-08-10T03:26:15+05:30</updated>
+    <id>http://rohilsurana.github.io/blog/2017/08/10/working-with-ruby-on-rails-and-pgsql-on-vagrant</id>
+    <content type="html"><![CDATA[<center><img class="center" src="http://rohilsurana.github.io/images/vagrant-postgre-ruby.jpeg"></center>
+
+
+<p><br></p>
+
+<p>At our bootcamp we were working on a Rails application that uses PgSQL for database. At DevOps part of bootcamp we were told to setup and use Vagrant to run this application. Most of us had never used Vagrant before. It was steep learning curve understanding how it works and how to use it.</p>
+
+<p>Vagrant is a tool built upon already existing virtual machine providers like VirtualBox, VMWare, etc. to simplify workflow and remove any worry about the environment in which our code will run.
+The name suggests that it is meant for code that can reside any where, so as a vagrant your code can live anywhere, irrespective of the environment present there.</p>
+
+<p>There are many guides out there that will help you to setup a Vagrant virtual machine for Rails, but I found that most of them missed a very important information in the guide. When you setup your Vagrant virtual machine using a Vagrantfile, there are two users that are created by default, a <code>root</code> user and a <code>vagrant</code> user. Now why this is important is that by default the provisions run by the Vagrantfile are executed by the root user, but when you <code>ssh</code> into you Vagrant machine using <code>vagrant ssh</code> you are logged in as the <code>vagrant</code> user.</p>
+
+<p>Now when you try to use PgSQL for your Rails app, when logged in using ssh you see the vagrant user and hence create a PG role with vagrant name so you won&rsquo;t have to use a password in you Rails app for connecting to PG, and when you try to start the Rails app tests in the provisions, you fail because the provisions are being executed by the root user.</p>
+
+<p>So I found out three ways to resolve this error -
+  - Create the PG role with name as root
+  - Change the user to vagrant user before starting the Rails app tests in provisions
+  - Run provisions with the vagrant user</p>
+
+<p>The first option seems the easiest as all you have to do is change the name of the role in the provisions. But you will need to use different user for serving the app as any vulnerability in your app can give a person access to the root user on your machine.</p>
+
+<p>For the second option you just need to change the user to vagrant in your provisions script and run tests with that.
+You won&rsquo;t need to use a different user when serving the app.</p>
+
+<p>The third way is very similar to the second way except that the functionality is provided by Vagrant itself. You can set the provisions to run with the vagrant user by setting <code>priviledged: false</code> in the Vagrantfile for the provisions, but then you will need to use <code>sudo</code> many times in your shell scripts.</p>
+
+<p>I am trying to find out which is the most appropriate way to resolve the error and will post about it when I find out. Till then - Happy coding.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Monolithic and Microservices]]></title>
+    <link href="http://rohilsurana.github.io/blog/2017/07/19/monolithic-and-microservices/"/>
+    <updated>2017-07-19T07:16:08+05:30</updated>
+    <id>http://rohilsurana.github.io/blog/2017/07/19/monolithic-and-microservices</id>
+    <content type="html"><![CDATA[<center><img class="center" src="http://rohilsurana.github.io/images/mono_micro.jpg">Picture made using <a href="http://shakydraw.com">ShakyDraw</a></center>
+
+
+<p><br></p>
+
+<p>Recently we had an downtime at the place where I just started working. It took around an hour to get the servers up and running again. When they traced back they found out that fault occurred in one microservice and propagated to others. While discussing the cause of the problem, we were questioned if it would had been easier to trace and correct the fault if the architecture had been Monolithic.</p>
+
+<p>Monolithic architecture means that the system has been designed to be self-contained, all parts required to build and run the whole system are included in a single package. For example a single Java Web Application, or a single directory that has all the NodeJS code.</p>
+
+<p>Monolithic systems are considered to be -</p>
+
+<ul>
+<li>easy to develop as they use single language and IDE for the development purpose</li>
+<li>easy to deploy as there is only a single package that has to be deployed on a server</li>
+<li>simpler to get started with as all the code lies in the same place</li>
+<li>simpler to scale as you can scale by running multiple instances of the application behind a load balancer</li>
+</ul>
+
+
+<p>But as the size of the application increases -</p>
+
+<ul>
+<li>the time taken for each test run increases as well and so does the time to deploy it</li>
+<li>it also becomes difficult for anyone new to completely understand the whole code.</li>
+<li>will be difficult to reimplement as the whole system will have to implemented</li>
+<li>impossible to scale individual functionalities that are receiving most hits, need to scale whole application</li>
+</ul>
+
+
+<p>Microservice architecture has a set of loosely coupled, collaborative services. These services all need to work together for the system to work as expected. Their is no specific example for this as these services can independently be written in any language that is deemed useful by the developing team.</p>
+
+<p>Microservice systems are considered to be -</p>
+
+<ul>
+<li>easier for developer to understand as each small service only has contracts that it has to maintain</li>
+<li>faster to test as unit tests are only run for service that is being deployed</li>
+<li>better at fault isolation as all services are running in different nodes</li>
+<li>easier to reimplement in case the language currently being used in one of the services has some serious issues, it can be reimplemented by just maintaining the contract with other services</li>
+<li>easier to deploy as each service can be deployed independently</li>
+<li>easier to scale as you only need to scale the service that is receiving more traffic</li>
+<li>difficult to deploy as added complexity of a distributed system</li>
+<li>having lesser throughput than monolithic counterpart as most of the inter-service communication also happens over network</li>
+<li>more memory consuming since all services are in different containers that have a memory overhead</li>
+</ul>
+
+
+<p>Hence the developer or team has to make a choice on the basis of the conditions under which they have to develop the application. Here at Go-Jek we initially has a monolithic architecture that was slowly moved to a microservice based architecture, as did most of the well known services on the internet.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[It's Not Optimization]]></title>
+    <link href="http://rohilsurana.github.io/blog/2017/07/17/its-not-optimization/"/>
+    <updated>2017-07-17T02:34:24+05:30</updated>
+    <id>http://rohilsurana.github.io/blog/2017/07/17/its-not-optimization</id>
+    <content type="html"><![CDATA[<center><img class="center" src="http://rohilsurana.github.io/images/got_premature_optimization.jpg"></center>
+
+
+<p><br></p>
+
+<blockquote><p>&ldquo;We should forget about small efficiencies, say about 97% of the time: premature optimization is the root of all evil.&rdquo; - Donald Knuth</p></blockquote>
+
+<p>&ldquo;Premature Optimization&rdquo; can be defined as optimizing before we know that we need to. It can be considered as breaking YAGNI (You Aren&rsquo;t Gonna Need It). This can result in a design that is not as clean as it could have been or code that is incorrect, because the code is complicated by the optimization and the programmer is distracted by optimizing.</p>
+
+<p>It can be
+In short the programmer thought it&rsquo;s good to complicate the code to extract a little bit of optimization out of it. What they do not realize is that this optimization will be useless, unless done after following the the only rule of optimization -</p>
+
+<p>  <em>First profile, and then attack the bottleneck</em></p>
+
+<p>The error that most people make is that they do not look at bigger picture, they optimize the code that they think will affect performance but they do not realize that that was not the bottleneck. Many times these optimizations break the design that the programmer initially had in mind. This results in unwanted complexity of the code. When they do this they end up creating a trap for future contributors to fall into and generate bugs.</p>
+
+<p>The right way of approaching performance optimization should be to create a project according to the initial design and then perform metrics on it to find the bottleneck. Once you find out the performance you will know which parts are worth the effort. Think about the cost and how much complexity you will add to the code as well. Do not mistake premature optimization with refactoring, if possible try to refactor your code to optimize it without breaking the design you are following.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Code vs English]]></title>
+    <link href="http://rohilsurana.github.io/blog/2017/07/11/english-vs-code/"/>
+    <updated>2017-07-11T20:50:36+05:30</updated>
+    <id>http://rohilsurana.github.io/blog/2017/07/11/english-vs-code</id>
+    <content type="html"><![CDATA[<center><img class="center" src="http://rohilsurana.github.io/images/eng_vs_code.jpg"></center>
+
+
+<p><br></p>
+
+<p>Since a past few days, I have been attending a bootcamp at my workplace. Here we are learning about expressing intent in what we do, be it writing code or commit messages. That&rsquo;s what I want to compare here. I have been writing code for quite a few years now, that wasn&rsquo;t the kind I am writing here, but it still worked. Although I have been using English as my secondary language all my life, but still I struggle more while writing commit messages than while writing code.</p>
+
+<p>Most programming languages have a few ways to get something done. While english has a lot of ways to express something that might seem similar but can depend on the context too. Even though while coding we use english a lot, when naming variables, functions etc. but writing these to express intent is way easier because of the grammar involved, since most programming languages have a definite or better way to perform simple actions and for complex actions there are conventions in place that are easy to follow if you are aware of them. So there are very few things left to assume in programming languages. The logic of the code written also helps in understanding what the code wants to express. While in english there are a lot of multiple ways that communicate the same thought and the grammar allows us to change the structure of a sentence in various ways, for example using active and passive voice.</p>
+
+<p>What I found works for me is to use the identifiers in the code to work as a framework for writing the commit message. Add a few prepositions or verb and voilà! you have a commit message that expresses intent.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Getting Started With VIM]]></title>
+    <link href="http://rohilsurana.github.io/blog/2017/07/07/getting-started-with-vim/"/>
+    <updated>2017-07-07T02:44:24+05:30</updated>
+    <id>http://rohilsurana.github.io/blog/2017/07/07/getting-started-with-vim</id>
+    <content type="html"><![CDATA[<p>I don&rsquo;t think anyone who is reading this doesn&rsquo;t know about VIM. Everyone, one in their life has been forced to exit it. I have tried learning VIM a number of times but failed. I fumbled with it and pressed random keys to just get out of it. Most of times it has been because of my inability to select large blocks of text using mouse and deleting it, which I have been used to when using Atom and Sublime Text or some IDE. Using VIM requires you to be already comfortable with writing commands, i.e. you should be good at using command line. When you get comfortable with the keyboard only then can you master VIM. And that is one of the advantages of VIM, it forces you to minimize the use of mouse. Now not using mouse does 2 things, lets your hand sit on the keyboard and save the time for shifting to the mouse from the keyboard.</p>
+
+<h4>Why VIM?</h4>
+
+<p>VIM is available by default on most of the OS distributions. Also as one of my friend suggests you can use it to edit files on a remote hosts too. But that is not all. VIM&rsquo;s plugins are what makes it so great, just like any of the new editors out there VIM also has plugins support (20+ years old, meh!). Being old and a prefered choice of power users the number of plugins it has are around double that of Atom.</p>
+
+<p>It has different modes, a few of which are Normal mode, Visual Mode, Insert Mode, Command Mode etc.. These can be invoked using different keys in the Normal mode that is given at start of VIM. These modes provide different kinds of functions. Command mode, as the name suggests, can be used to execute commands that can run on the current file. You can also add custom commands by yourself or by adding plugins. For example using a <code>:py</code> command to execute python code from VIM.</p>
+
+<p>To make up for the mouse it has motions, in the normal mode you can use <code>h</code>, <code>j</code>, <code>k</code>, <code>l</code> to move the cursor left, down, up, right respectively. Prefix it with a number like <code>9k</code> can cause that counts of motion in the respective direction. There are many such motions like <code>H</code>, <code>G</code> etc. that are used to jump to top or bottom of the page. In Visual mode using these motions causes the text to get selected. Hence you can use complex combinations of these motions to select desired text and copy or replace it.</p>
+
+<p>There are also similar text objects that are independent of the cursor position inside the scope. These work on the complete word, sentence, paragraph despite their position inside it. Ex - <code>diw</code> would delete a word while <code>dw</code> will delete only the part of the word after the prompt.
+Similarly exists <code>daw</code>, <code>dis</code>, <code>das</code>, <code>dip</code>, <code>dap</code> etc..</p>
+
+<p>These text-objects and motions enables a user to move faster and precisely without removing their hands from the keyboard and hence saving time.</p>
+
+<p>I am beginning to use these motions and text to speed up the editing process.</p>
+]]></content>
+  </entry>
+  
+</feed>
