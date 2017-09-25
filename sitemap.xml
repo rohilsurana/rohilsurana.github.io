@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>http://rohilsurana.github.io/blog/2017/09/24/testing-in-ruby-using-mocks/</loc>
+<lastmod>2017-09-24T23:53:07+05:30</lastmod>
+</url>
+<url>
 <loc>http://rohilsurana.github.io/blog/2017/08/10/working-with-ruby-on-rails-and-pgsql-on-vagrant/</loc>
 <lastmod>2017-08-10T03:26:15+05:30</lastmod>
 </url>

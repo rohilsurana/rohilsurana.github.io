@@ -1,0 +1,175 @@
+<!doctype html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+
+  <!-- Use the .htaccess and remove these lines to avoid edge case issues.
+       More info: h5bp.com/b/378 -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <title>Testing in Ruby using mocks |  Rohil Surana</title>
+  <meta name="author" content="Rohil Surana">
+  
+
+  
+  <!-- Mobile viewport optimized: j.mp/bplateviewport -->
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
+
+  <!-- CSS: implied media=all -->
+  <!-- CSS concatenated and minified via ant build script-->
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
+  <!-- end CSS-->
+
+  <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
+
+  <!-- All JavaScript at the bottom, except for Modernizr / Respond.
+       Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries
+       For optimal performance, use a custom Modernizr build: www.modernizr.com/download/ -->
+  <script src="/javascripts/libs/modernizr-2.0.6.min.js"></script>
+</head>
+
+<body id="post">
+
+  <div id="container">
+    <header>
+    <a href="http://rohilsurana.github.io">Home</a>
+</header>
+
+    <article>
+
+
+  <h1 class="article-title">Testing in Ruby Using Mocks</h1>
+  <div class="article-content"><p>Testing is a very important part of software development, and it doesn&rsquo;t just ends at you writing tests for your perfectly working code but writing tests before you write your perfectly working code i.e. follow TDD - Test Driven Development. And while you are doing all this you might have faced the problem where running your tests suite is taking a lot of time and hence increasing your development time. That&rsquo;s one reason why you would opt for mocking in your tests.</p>
+
+<p>When unit testing, many times we find that the unit being tested depends on other units for it&rsquo;s functioning. These units can sometimes be difficult to work with because they might be dealing with a database, file IO or maybe a HTTP API. All of these can be slow at times, especially a HTTP API and increasing testing time as well as you might not want to hit an external HTTP API each time you run tests. Here comes in the use of <a href="https://martinfowler.com/bliki/TestDouble.html">test-doubles</a>. In Ruby <a href="https://github.com/rspec/rspec-mocks">rpec-mocks</a> is one way to create these. Lets say you are working on a twitter app that has a PostController -</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>class PostController
+</span><span class='line'>  def create(user, title, article)
+</span><span class='line'>    post = Post.new(user, title, article)
+</span><span class='line'>    if post.save
+</span><span class='line'>      return true
+</span><span class='line'>    else
+</span><span class='line'>      return false
+</span><span class='line'>    end
+</span><span class='line'>  end
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Here the unit being tested is create method and hence we do not care about the implementation of the dependencies like Post.</p>
+
+<p>Now lets write the test for <code>PostController.create()</code> -</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>describe PostController do
+</span><span class='line'>  context "#create" do
+</span><span class='line'>    it "creates a new post for a given user"
+</span><span class='line'>      user = double("user")
+</span><span class='line'>      title = "Title"
+</span><span class='line'>      article = "Article"
+</span><span class='line'>      post = instance_double("post")
+</span><span class='line'>      expect(post).to receive(:save) { true }
+</span><span class='line'>      expect(Post).to receive(:new) { post }
+</span><span class='line'>      post_controller = PostController.new()
+</span><span class='line'>      expect(post_controller.create(user, title, article)).to eq(true)
+</span><span class='line'>    end
+</span><span class='line'>  end
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In the above example you can see we have tried to verify if the unit being tested makes calls that it is supposed to and returns the expected value. By setting expectation on <code>:save</code> we ensure that if it is not called then the test will fail.</p>
+
+<p>Here there is no need to worry about the <code>user</code> being queried for its details that are to be used in creation of a post, or how the <code>post</code> is actually going to save the details into the database and at the same time we are able to confirm that the functions required by the method <code>create</code> are being used by it.</p>
+
+<p>Rspec-mocks provides a lot more similar functionalities that can be used to test more complex functions easily. For more details have a look at the rspec-mocks <a href="https://github.com/rspec/rspec-mocks">documentation</a>.</p>
+
+<p>Mocking is a very opinionated topic just like testing itself. Some people believe that ideally all tests should be properly mocked while some believe otherwise. I have found mocking helpful because of the reasons I have mentioned above. The downside of mocking that I have felt is that sometimes you need to know some of the implementation details beforehand. I think there is no problem if you use mocking or not, the main thing to
+note is that you test.</p>
+</div>
+  <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://rohilsurana.github.io/blog/2017/09/24/testing-in-ruby-using-mocks/" data-via="rohilrs" data-counturl="http://rohilsurana.github.io/blog/2017/09/24/testing-in-ruby-using-mocks/" >Tweet</a>
+  
+  
+</div>
+
+  
+
+</article>
+
+        <footer>
+
+    </footer>
+
+  </div>
+
+    <!-- JavaScript at the bottom for fast page loading -->
+
+  <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="js/libs/jquery-1.6.2.min.js"><\/script>')</script>
+
+
+  <!-- scripts concatenated and minified via ant build script-->
+  <script defer src="/javascripts/app.js"></script>
+  <!-- end scripts-->
+
+	
+
+  <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.
+       chromium.org/developers/how-tos/chrome-frame-getting-started -->
+  <!--[if lt IE 7 ]>
+    <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+    <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+  <![endif]-->
+ 
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>
+
